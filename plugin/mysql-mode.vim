@@ -24,6 +24,26 @@ endif
 command! MySQLMode ruby mysql_mode
 
 ruby <<EOF
+undef vim_exec if respond_to? :vim_exec
+def vim_exec *args
+  args.each { |cmd| VIM::command cmd }
+end
+
+undef prompt if respond_to? :prompt
+def prompt text, default=nil
+  vim_exec 'call inputsave()'
+  vim_exec "let input = input('#{text} [#{default}]: ')"
+  vim_exec "call inputrestore()"
+  input = VIM::evaluate "input"
+  if input != ""
+    input
+  elsif !default.nil?
+    default
+  else
+    raise "This input is required but missing, aborted!"
+  end
+end
+
 undef get_var if respond_to? :get_var
 def get_var name
   VIM::evaluate("g:#{name}")
@@ -48,11 +68,6 @@ def get_content
     content << buffer[i + 1]
   }
   content
-end
-
-undef vim_exec if respond_to? :vim_exec
-def vim_exec *args
-  args.each { |cmd| VIM::command cmd }
 end
 
 undef mysql_mode if respond_to? :mysql_mode
