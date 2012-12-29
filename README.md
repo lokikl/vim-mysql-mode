@@ -28,4 +28,4 @@ result in the top split.
 ## Misc ##
 
 Also encouraging you to use this plugin with Syntastic and Ultisnips, having the power of
-syntax highlight and snippet support.
+syntax checking and snippet support.
