@@ -72,12 +72,17 @@ end
 
 undef mysql_mode if respond_to? :mysql_mode
 def mysql_mode
-  vim_exec "set filetype=mysql"
   reset_var "mysqlModeHost", "Host"
   reset_var "mysqlModePort", "Port"
   reset_var "mysqlModeDBName", "DB Name"
   reset_var "mysqlModeUsername", "Username"
   reset_var "mysqlModePassword", "Password"
+  enter_mysql_mode
+end
+
+undef enter_mysql_mode if respond_to? :enter_mysql_mode
+def enter_mysql_mode
+  vim_exec "set filetype=mysql"
   vim_exec 'echo ""', 'echo "\nEntered MySQL Mode"'
   vim_exec "wincmd n", "wincmd w" if VIM::Window.count < 2
   vim_exec "noremap <F5> :ruby execute_mysql<cr>"
