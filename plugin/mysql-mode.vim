@@ -93,7 +93,7 @@ def execute_mysql
   username  = get_var 'mysqlModeUsername'
   password  = get_var 'mysqlModePassword'
   passcmd   = password && password != "" ? "-p#{password}" : ""
-  res = `mysql --default-character-set=utf8 -h#{host} -P#{port} -u#{username} #{passcmd} #{db} -vvv -e '#{cmd}'`
+  res = `mysql --default-character-set=utf8 -h#{host} -P#{port} -u#{username} #{passcmd} #{db} -vvv -e '#{cmd}' 2>&1`
   res = res.split("\n")
   res = res[0..-3] if res.count > 1
   res.each_with_index { |l, i|
