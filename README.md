@@ -30,7 +30,7 @@ result in the top split.
 Also encouraging you to use this plugin with Syntastic and Ultisnips, having the power of
 syntax checking and snippet support.
 
-Personally, I launch this vim mysql console directly through a shell command.
+Normally, I launch this vim mysql console to touch to my local database directly through a shell command.
 
     function vimsql(){
       gvim -c "let g:mysqlModeDBName='$1' | ruby enter_mysql_mode"
@@ -41,3 +41,5 @@ With the autocompletion power from zsh.
     #compdef vimsql
     #autoload
     compadd -x 'DBs' `mysql -uroot -e 'show databases \G' | grep Database | awk '{print $2}'`
+
+With this setup, I can get into the console by typing `vimsql mydb` with the autocomplete when `vimsql <TAB>`.
