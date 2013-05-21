@@ -86,6 +86,8 @@ def enter_mysql_mode
   vim_exec 'echo ""', 'echo "\nEntered MySQL Mode"'
   vim_exec "wincmd n", "wincmd w" if VIM::Window.count < 2
   vim_exec "noremap <F5> :ruby execute_mysql<cr>"
+  vim_exec "normal ishow tables;"
+  vim_exec 'call feedkeys("\<F5>")'
 end
 
 undef execute_mysql if respond_to? :execute_mysql
